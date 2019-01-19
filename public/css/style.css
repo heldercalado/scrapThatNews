@@ -26,6 +26,9 @@ body {
     display: none;
     
 }
+i:hover {
+    cursor: pointer;
+}
 
 .notescontent {
     background: yellow;
