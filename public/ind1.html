@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
+        crossorigin="anonymous"></script>
+<link rel="stylesheet" href="./css/style.css">
+    <title>Scrap That News</title>
+</head>
+<style>
+   
+</style>
+
+<body>
+    <div class="container">
+        <div class="bodyhead">
+            <h1 class="mainheadertext">The UCSD NEWS</h1>
+        </div>
+        <div class="bodymid">
+
+        </div>
+        <div class="bodybody">
+
+        </div>
+    </div>
+</body>
+<script>
+    $(document).ready(function () {
+
+
+        $.ajax({
+            type: "GET",
+            url: "/api/articles/",
+            dataType: "JSON",
+            success: function (response) {
+                console.log(response);
+                processData(response);
+
+            }
+        });
+
+        function processData(data) {
+            for (var i = 0; i < data.length; i++) {
+                var $box = $("<div class='box'></div>");
+                $box.append("<div class='newsheader'>" + data[i].headline + "</div>");
+                $box.append("<div class='newspic'><img src='" + data[i].imgUrl + "'></div>");
+                $box.append("<div class='newsbody'><p>" + data[i].article + "</p></div>");
+                $box.append("<div class='newslink'><a href='" + data[i].headlineUrl + "'>Read More</a></div>");
+                $box.append("<div class='newsdate'><p>" + Date(data[i].date) + "</p></div>");
+                $(".bodybody").append($box);
+            }
+
+        }
+        var d = new Date();
+        $(".bodymid").append("<h1 class='midtext'>" + d + "</h1>")
+
+    })
+</script>
+
+</html>

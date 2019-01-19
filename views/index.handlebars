@@ -1,0 +1,50 @@
+<div class="container">
+  <div class="bodyhead">
+    <h1 class="mainheadertext">The UCSD NEWS</h1>
+  </div>
+  <div class="bodymid">
+
+  </div>
+  <div class="bodybody">
+
+    {{#each article}}
+    <div class='box'>
+      <div class='newsheader'>{{headline}}</div>
+      <div class='newspic'>
+        <img src='{{imgUrl}}'>
+      </div>
+      <div class='newsbody'>
+        <p>"{{article}}"</p>
+      </div>
+      <div class='newslink'>
+        <a href='{{headlineUrl}}'>Read More</a>
+      </div>
+      <div class='newsdate'>
+        <p>
+          {{formatDate date day="numeric" month="numeric" year="numeric"}}
+          <span class="notes">
+            <i class="far fa-sticky-note note" data-articleid="{{id}}"></i>
+          </span>
+        </p>
+        <div class="notestyle" id="boxnote{{id}}">
+              <div class="notescontent">
+                <form action="/api/submit/{{id}}" method="POST" id="form{{id}}" data-articleid="{{id}}">
+
+                  <div class="notescontenttitle">
+                    <input type="text" placeholder="title" name="title" style="width:100%;" value="{{note.title}}">
+                  </div>
+                  <div class="notescontentbody">
+                    <textarea id="txt_comments" name="body" rows="9" style="width:100%;" placeholder="comments" value="">{{note.body}}</textarea>
+                  </div>
+                  <div class="notescontentfooter">
+                    <input type="submit" value="Add Note"  class="btn" style="width:100%; height:100%;" >
+                  </div>
+                </form>
+              </div>
+            </div>
+
+      </div>
+    </div>
+    {{/each}}
+
+  </div>

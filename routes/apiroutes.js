@@ -85,5 +85,43 @@ res.json(data);
 
 
 })
+router.post("/submit/:id", function(req, res) {
+    console.log(req.params.id);
+    console.log(req.body);
+
+    // Create a new Note in the db
+    db.Note.create(req.body)
+      .then(function(dbNote) {
+        // If a Note was created successfully, find one User (there's only one) and push the new Note's _id to the User's `notes` array
+        // { new: true } tells the query that we want it to return the updated User -- it returns the original by default
+        // Since our mongoose query returns a promise, we can chain another `.then` which receives the result of the query
+        return db.Article.findOneAndUpdate({_id:req.params.id}, { $set: { note: dbNote._id }},{ new: true } );
+      })
+      .then(function(article) {
+        db.Article.find({}).sort({date:-1}).populate('note').then(data =>{
+            res.redirect("/");
+        })
+        
+        
+      })
+      .catch(function(err) {
+        // If an error occurs, send it back to the client
+        res.json(err);
+      });
+  });
+router.get("/populatedarticle", function(req, res) {
+    // Find all users
+    db.Article.find({})
+      // Specify that we want to populate the retrieved users with any associated notes
+      .populate("note")
+      .then(function(articles) {
+        // If able to successfully find and associate all Users and Notes, send them back to the client
+        res.json(articles);
+      })
+      .catch(function(err) {
+        // If an error occurs, send it back to the client
+        res.json(err);
+      });
+  });
 
 module.exports = router
