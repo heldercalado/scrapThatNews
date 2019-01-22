@@ -2,7 +2,7 @@
 <p>View Online Demo <a href="https://scrap-that-news.herokuapp.com/">here</a>.</p>
 
 <h2>About</h2>
-<p>This is project is an example on how to use axios and cheerios to "scrape" news headlines from a website.</p>
+<p>This project is an example on how to use axios and cheerios to "scrape" news headlines from a website.</p>
 <p>After the scraping of the data is complete , we store it in a mongoDB database.</p>
 <p>Then , we use express and handlebars to create the routes and render the main page with the news for the user.</p>
 <p> the User can also create notes tied up to each news headlines that are displayed by using the Populate function of mongoose.</p>
